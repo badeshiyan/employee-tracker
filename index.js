@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const consoleTable = require("console.table");
+const figlet = require("figlet");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -14,6 +15,15 @@ let connection = mysql.createConnection({
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
+});
+
+figlet("Employee Tracker!!", function (err, data) {
+  if (err) {
+    console.log("intro");
+    console.dir(err);
+    return;
+  }
+  console.log(data);
 });
 
 function startApp() {
@@ -63,6 +73,7 @@ function startApp() {
           break;
         case "Exit":
           connection.end();
+          break;
       }
     });
 }
