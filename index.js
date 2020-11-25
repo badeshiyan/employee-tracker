@@ -1,7 +1,6 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
-const consoleTable = require("console.table");
-const figlet = require("figlet");
+const cTable = require("console.table");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -15,15 +14,7 @@ let connection = mysql.createConnection({
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-});
-
-figlet("Employee Tracker!!", function (err, data) {
-  if (err) {
-    console.log("intro");
-    console.dir(err);
-    return;
-  }
-  console.log(data);
+  startApp();
 });
 
 function startApp() {
@@ -35,20 +26,28 @@ function startApp() {
         name: "userchoice",
         choices: [
           "View all employees",
+          "View all roles",
+          "View all departments",
           "Add employee",
           "Add role",
           "Add department",
-          "View all roles",
-          "View all departments",
           "Exit",
         ],
       },
     ])
-    .then(function (Response) {
-      switch (Response.userchoice) {
+    .then(function (answer) {
+      switch (answer.userchoice) {
         case "View all employees":
           console.log("you chose to view all employees");
           viewAllEmployees();
+          break;
+        case "View all roles":
+          console.log("you chose to view all roles");
+          viewAllRoles();
+          break;
+        case "View all departments":
+          console.log("viewing all departments");
+          viewAllDepartments();
           break;
         case "Add employee":
           console.log("you chose to add an employee");
@@ -62,15 +61,6 @@ function startApp() {
           console.log("you chose to add department");
           addDepartment();
           break;
-        case "View all roles":
-          console.log("you chose to view all roles");
-          viewAllRoles();
-          break;
-        case "View all departments":
-          console.log("viewing all departments");
-          viewAllDepartments();
-          startApp();
-          break;
         case "Exit":
           connection.end();
           break;
@@ -78,7 +68,7 @@ function startApp() {
     });
 }
 
-startApp();
+// startApp();
 
 function viewAllDepartments() {
   connection.query("SELECT department.name FROM department;", function (
@@ -87,7 +77,9 @@ function viewAllDepartments() {
   ) {
     if (err) throw err;
     console.log(res);
-    connection.end();
+    // connection.end();
+    console.table(res);
+    startApp();
   });
 }
 
@@ -96,8 +88,8 @@ function viewAllRoles() {
     "SELECT role.title, role.salary, department.name FROM role LEFT JOIN department	ON role.department_id = department.id;",
     function (err, res) {
       if (err) throw err;
-      console.log(res);
-      connection.end();
+      //   console.log(res);
+      console.table(res);
     }
   );
 }
@@ -107,8 +99,55 @@ function viewAllEmployees() {
     "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name FROM employee LEFT  JOIN role on employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id;",
     function (err, res) {
       if (err) throw err;
-      console.log(res);
-      connection.end();
+      //   console.log(res);
+      console.table(res);
     }
   );
+}
+
+function addRole() {
+  connection.query("SELECT * FROM department", function (err, results) {
+    if (err) throw err;
+    console.log(results);
+    inquirer
+      .prompt([
+        {
+          name: "title",
+          type: "input",
+          message: "What is the title of the role?",
+        },
+        {
+          name: "salary",
+          type: "input",
+          message: "What is the salary of the role?",
+        },
+        {
+          name: "deptName",
+          type: "list",
+          choices: function () {
+            let choiceArray = [];
+            for (var i = 0; i < results.length; i++) {
+              choiceArray.push({ name: results[i].name, value: results[i].id });
+            }
+            return choiceArray;
+          },
+          message: "What department does this role apart of?",
+        },
+      ])
+      .then(function (answer) {
+        connection.query(
+          "INSERT INTO role SET ?",
+          {
+            title: answer.title,
+            salary: answer.pay,
+            department_id: answer.deptName,
+          },
+          function (err) {
+            if (err) throw err;
+            console.log("Your new role has been created.");
+            startApp();
+          }
+        );
+      });
+  });
 }
