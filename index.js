@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const cTable = require("console.table");
+const figlet = require("figlet");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -15,6 +16,15 @@ connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
   startApp();
+});
+
+figlet("Employee Tracker!!", function (err, data) {
+  if (err) {
+    console.log("Something went wrong...");
+    console.dir(err);
+    return;
+  }
+  console.log(data);
 });
 
 function startApp() {
@@ -145,7 +155,7 @@ function addEmployee() {
         {
           type: "input",
           message:
-            "If this particular employee reports to a manager, enter the manager's id. If not, press enter",
+            "if this particular employee reports to a manager, enter the manager's id. If not, press enter",
           name: "manager",
         },
       ])
@@ -165,7 +175,7 @@ function addEmployee() {
 
           function (err) {
             if (err) throw err;
-            console.log("the new employee is now created.");
+            console.log("the new employee is now added.");
             startApp();
           }
         );
@@ -190,8 +200,8 @@ function addRole() {
           name: "salary",
         },
         {
-          name: "deptName",
           type: "list",
+          name: "deptName",
           choices: function () {
             let choicesArray = [];
             for (var i = 0; i < results.length; i++) {
@@ -215,7 +225,7 @@ function addRole() {
           },
           function (err) {
             if (err) throw err;
-            console.log("your new role has been created.");
+            console.log("the new role is now added.");
             startApp();
           }
         );
@@ -227,9 +237,9 @@ function addDepartment() {
   inquirer
     .prompt([
       {
-        name: "deptName",
         type: "input",
-        message: "What is the name of the department?",
+        name: "deptName",
+        message: "what is the name of the department?",
       },
     ])
     .then(function (answer) {
@@ -238,7 +248,7 @@ function addDepartment() {
         { name: answer.deptName },
         function (err) {
           if (err) throw err;
-          console.log("Your new department has been created.");
+          console.log("the new department is now added.");
           startApp();
         }
       );
@@ -251,12 +261,12 @@ function updateRole() {
       .prompt([
         {
           type: "input",
-          message: "What employee number are you wanting to update?",
+          message: "what employee number are you wanting to update?",
           name: "employeeId",
         },
         {
-          name: "roleName",
           type: "list",
+          name: "roleName",
           choices: function () {
             let choicesArray = [];
             for (var i = 0; i < results.length; i++) {
@@ -267,7 +277,7 @@ function updateRole() {
             }
             return choicesArray;
           },
-          message: "What is the new role for the employee?",
+          message: "what is the new role for the employee?",
         },
       ])
       .then(function (answer) {
@@ -276,7 +286,7 @@ function updateRole() {
           [answer.roleName, answer.employeeId],
           function (err) {
             if (err) throw err;
-            console.log("The role has been updated");
+            console.log("the role is now updated");
             startApp();
           }
         );
