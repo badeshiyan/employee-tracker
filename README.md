@@ -4,7 +4,7 @@
 
 For this assignment, we continued to build on our previously gained knowledge of node.js, inquirer and other command line concepts. In this particular unit (and assignment), we were introduced to mysql and building databases. This assignment was a bit different, and quite frankly, more complex than previous ones due to the introduction of mysql and having to work extensively in this database service, in addition to our javascript efforts, to successfully build the following app.
 
-This week,
+Upon review of this week's assignment, the reader will find the creation of a command-line application that allows the user to perform various requests such as view all employees in the application database, view all roles; even view all departments. The user is also able to add employees, roles and departments as well!!
 
 Please find additional information regarding this project below. Thanks so much!
 
