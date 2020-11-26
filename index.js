@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
-const cTable = require("console.table");
 const figlet = require("figlet");
+const cTable = require("console.table");
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -18,6 +18,7 @@ connection.connect(function (err) {
   startApp();
 });
 
+// package for application's intro text
 figlet("Employee Tracker!!", function (err, data) {
   if (err) {
     console.log("Something went wrong...");
@@ -27,6 +28,7 @@ figlet("Employee Tracker!!", function (err, data) {
   console.log(data);
 });
 
+// function to initiate application
 function startApp() {
   inquirer
     .prompt([
@@ -85,6 +87,7 @@ function startApp() {
 
 // startApp();
 
+// function for user to view all departments
 function viewAllDepartments() {
   connection.query("SELECT department.name FROM department;", function (
     err,
@@ -98,6 +101,7 @@ function viewAllDepartments() {
   });
 }
 
+// function for user to view all roles
 function viewAllRoles() {
   connection.query(
     "SELECT role.title, role.salary, department.name FROM role LEFT JOIN department	ON role.department_id = department.id;",
@@ -110,6 +114,7 @@ function viewAllRoles() {
   );
 }
 
+// function for user to view all employees
 function viewAllEmployees() {
   connection.query(
     "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name FROM employee LEFT  JOIN role on employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id;",
@@ -122,6 +127,7 @@ function viewAllEmployees() {
   );
 }
 
+// function for user to add an employee
 function addEmployee() {
   connection.query("SELECT * FROM role", function (err, results) {
     if (err) throw err;
@@ -183,6 +189,7 @@ function addEmployee() {
   });
 }
 
+// function for user to add a role
 function addRole() {
   connection.query("SELECT * FROM department", function (err, results) {
     if (err) throw err;
@@ -233,6 +240,7 @@ function addRole() {
   });
 }
 
+// function for user to add a department
 function addDepartment() {
   inquirer
     .prompt([
@@ -255,6 +263,7 @@ function addDepartment() {
     });
 }
 
+// function for user to update a role
 function updateRole() {
   connection.query("SELECT * FROM role", function (err, results) {
     inquirer
