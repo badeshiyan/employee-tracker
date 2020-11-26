@@ -2,23 +2,15 @@
 
 ## Overview:
 
-For this unit, we continue to gain the relevant skillset(s) to create back-end web applications. Express is a web app that allows us to do just that.
-Per the instructions for this week's assignment, we were to create an application that can be used to write, save, and delete notes. Again, this application uses an express backend and saves and retrieves note data from the provided JSON file.
+For this assignment, we continued to build on our previously gained knowledge of node.js, inquirer and other command line concepts. In this particular unit (and assignment), we were introduced to mysql and building databases. This assignment was a bit different, and quite frankly, more complex than previous ones due to the introduction of mysql and having to work extensively in this database service, in addition to our javascript efforts, to successfully build the following app.
 
-Please find additional information regarding this project below. Thank you.
+This week,
+
+Please find additional information regarding this project below. Thanks so much!
 
 ## Video of Application User Flow
 
 ![Adeshiyan Employee Tracker Video](./assets/tracker.gif)
-
-## Deployed Webpage Link
-
-Please find the deployed webpage link here: https://enigmatic-headland-32073.herokuapp.com/notes
-
-## Screenshots of Deployed Application
-
-![Adeshiyan Note Taker Screenshot](./public/assets/notetaker1.png)
-![Adeshiyan Note Taker Screenshot](./public/assets/notetaker2.png)
 
 ## Credits
 

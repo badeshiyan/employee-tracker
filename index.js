@@ -31,7 +31,7 @@ function startApp() {
           "Add employee",
           "Add role",
           "Add department",
-          "Update a role",
+          "Update role",
           "Exit",
         ],
       },
@@ -62,7 +62,7 @@ function startApp() {
           //   console.log("you chose to add department");
           addDepartment();
           break;
-        case "Update a role":
+        case "Update role":
           //   console.log("you chose to add department");
           updateRole();
           break;
@@ -250,9 +250,9 @@ function updateRole() {
     inquirer
       .prompt([
         {
-          name: "employeeId",
           type: "input",
-          message: "What employee number are you wanting to update",
+          message: "What employee number are you wanting to update?",
+          name: "employeeId",
         },
         {
           name: "roleName",
