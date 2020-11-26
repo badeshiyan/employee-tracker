@@ -12,6 +12,10 @@ Please find additional information regarding this project below. Thanks so much!
 
 ![Adeshiyan Employee Tracker Video](./assets/tracker.gif)
 
+## Screenshot of Generated Application
+
+![Adeshiyan Employee Tracker Screenshot](./assets/trackerscreenshot.png)
+
 ## Credits/Resources
 
 1. Node.js: https://nodejs.dev/learn/the-nodejs-fs-module
