@@ -10,7 +10,7 @@ Please find additional information regarding this project below. Thanks so much!
 
 ## Video of Application User Flow
 
-![Adeshiyan Employee Tracker Video](./assets/tracker.gif)
+![Adeshiyan Employee Tracker Video](./assets/tracker1.gif)
 
 ## Screenshot of Generated Application
 
